@@ -1,0 +1,26 @@
+{
+  "name": "analyse-create-react-app",
+  "version": "1.0.0",
+  "description": "analyse-create-react-app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "deploy": "./scripts/deplay.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lxchuan12/analyse-create-react-app.git"
+  },
+  "keywords": [],
+  "author": "luoxiaochuan<lxchuan12@163.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lxchuan12/analyse-create-react-app/issues"
+  },
+  "homepage": "https://github.com/lxchuan12/analyse-create-react-app#readme",
+  "devDependencies": {
+    "vuepress": "^0.13.1"
+  }
+}
