@@ -9,14 +9,20 @@
 'use strict';
 
 const spawn = require('react-dev-utils/crossSpawn');
+// process.argv （一个包含命令行参数的数组。第一个元素是node，第二个元素是JavaScript文件的文件名。接下来的元素则是附加的命令行参数。）
 const args = process.argv.slice(2);
+console.log(process.argv);
+console.log(args);
 
 const scriptIndex = args.findIndex(
   x => x === 'build' || x === 'eject' || x === 'start' || x === 'test'
 );
+console.log(scriptIndex, `scriptIndex`);
 const script = scriptIndex === -1 ? args[0] : args[scriptIndex];
 const nodeArgs = scriptIndex > 0 ? args.slice(0, scriptIndex) : [];
 
+console.log(script, 'script');
+console.log(nodeArgs, 'nodeArgs');
 switch (script) {
   case 'build':
   case 'eject':
@@ -29,6 +35,7 @@ switch (script) {
         .concat(args.slice(scriptIndex + 1)),
       { stdio: 'inherit' }
     );
+    console.log(result, 'result');
     if (result.signal) {
       if (result.signal === 'SIGKILL') {
         console.log(
