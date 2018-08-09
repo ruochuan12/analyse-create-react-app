@@ -1,24 +1,36 @@
 'use strict';
 
 // Do this as the first thing so that any code reading it knows the right env.
+// 定义BABEL_ENV、NODE_ENV环境变量为development
 process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
+
+// 如果在事件循环的一次轮询中，一个 Promise 被 rejected，并且此 Promise 没有绑定错误处理器，'unhandledRejection 事件会被触发。
+// 当使用 Promise 进行编程时，异常会以 "rejected promises" 的形式封装。
+// Rejection 可以被 promise.catch() 捕获并处理，并且在 Promise 链中传播。
+// 'unhandledRejection 事件在探测和跟踪 promise 被 rejected，并且 rejection 未被处理的场景中是很有用的。
 process.on('unhandledRejection', err => {
   throw err;
 });
 
 // Ensure environment variables are read.
+// 引入../config/env配置
 require('../config/env');
 
+// 引入fs内置文件模块
 const fs = require('fs');
+// 引入 chalk 控制台输出
 const chalk = require('chalk');
+// 引入webpack和webpackDevServer
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
+// 清屏
 const clearConsole = require('react-dev-utils/clearConsole');
+// 检查引用的文件
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const {
   choosePort,
@@ -26,23 +38,33 @@ const {
   prepareProxy,
   prepareUrls,
 } = require('react-dev-utils/WebpackDevServerUtils');
+// 开启浏览器
 const openBrowser = require('react-dev-utils/openBrowser');
 const paths = require('../config/paths');
+// 引入开发环境的webpack基本配置
 const config = require('../config/webpack.config.dev');
+// 创建开发环境配置函数 返回一个对象
 const createDevServerConfig = require('../config/webpackDevServer.config');
 
+// 同步方法判断yarn.lock文件是否存在 来确定是不是用使用useYarn
 const useYarn = fs.existsSync(paths.yarnLockFile);
+// 检查一个流是否连接到了一个 TTY 上下文
 const isInteractive = process.stdout.isTTY;
 
 // Warn and crash if required files are missing
+// 判断这数组里的文件是否存在。不存在则报错，并且退出。
+// 也就是 public/index.html, src/index.js
 if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
 
 // Tools like Cloud9 rely on this.
+// 默认端口号 如果设置了env.PROT(比如：PORT=1000 npm run start) 使用设置的端口，否则默认 3000
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
+// 默认端口号 如果设置了HOST(比如：HOST=localhost npm run start) 使用设置的，否则默认 0.0.0.0
 const HOST = process.env.HOST || '0.0.0.0';
 
+// 如果设置HOST了 控制台给出一些提示
 if (process.env.HOST) {
   console.log(
     chalk.cyan(

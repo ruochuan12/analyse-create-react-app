@@ -1,14 +1,22 @@
 'use strict';
 
+// 引入错误提示中间件
 const errorOverlayMiddleware = require('react-dev-utils/errorOverlayMiddleware');
+// 引入serviceWork中间件
 const noopServiceWorkerMiddleware = require('react-dev-utils/noopServiceWorkerMiddleware');
+// 引入忽略文件函数
 const ignoredFiles = require('react-dev-utils/ignoredFiles');
+// 引入开发环境webpack配置文件
 const config = require('./webpack.config.dev');
+// 引入./paths文件
 const paths = require('./paths');
 
+// protocol http https
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
+// HOST
 const host = process.env.HOST || '0.0.0.0';
 
+// 导出函数 函数返回一个对象
 module.exports = function(proxy, allowedHost) {
   return {
     // WebpackDevServer 2.4.3 introduced a security fix that prevents remote
@@ -68,6 +76,7 @@ module.exports = function(proxy, allowedHost) {
     // src/node_modules is not ignored to support absolute imports
     // https://github.com/facebookincubator/create-react-app/issues/1065
     watchOptions: {
+      // 忽略一些文件 主要是node_modules
       ignored: ignoredFiles(paths.appSrc),
     },
     // Enable HTTPS if the HTTPS environment variable is set to 'true'

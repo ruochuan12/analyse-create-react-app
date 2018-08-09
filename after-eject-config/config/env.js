@@ -1,7 +1,8 @@
 'use strict';
-
+// 引入fs、path内置模块
 const fs = require('fs');
 const path = require('path');
+// 引入./paths
 const paths = require('./paths');
 
 // Make sure that including paths.js after env.js will read .env variables.
